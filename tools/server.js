@@ -1,4 +1,4 @@
-require('babel-register');
+require('babel-register')
 import Koa from 'koa'
 const koa_body = require('koa-bodyparser')
 const Router = require('koa-router')
