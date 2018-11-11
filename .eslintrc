@@ -22,7 +22,7 @@
       "browser": true,
       "node": true,
       "jquery": true,
-      "mocha": true
+      "jest": true
     },
     "settings": {
         "react": {
@@ -86,5 +86,5 @@
             }
         }
     ]
-    
+
   }
