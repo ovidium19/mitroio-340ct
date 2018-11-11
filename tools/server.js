@@ -8,8 +8,9 @@ const sendfile = require('koa-sendfile')
 import webpack from 'webpack'
 import config from '../webpack.config.dev'
 
-const webMid = require('koa-webpack-dev-middleware')
-console.log(process.env)
+import webMid from 'koa-webpack-dev-middleware'
+import hotMid from 'koa-webpack-hot-middleware'
+
 const port = 3000
 const app = new Koa()
 app.use(koa_body())
@@ -19,13 +20,16 @@ app.use(webMid(compiler),{
     noInfo: true,
     publicPath: config.output.publicPath
 })
-app.use(require('koa-webpack-hot-middleware')(compiler))
+app.use(hotMid(compiler))
+app.use( async(ctx, next) => {
+	ctx.set('Access-Control-Allow-Origin', '*')
+	await next()
+})
 router.get('*', async ctx => {
     ctx.set('Allow', 'GET')
     try {
         if (ctx.get('error')) throw new Error(ctx.get('error'))
         await sendfile(ctx,path.join( __dirname, '../src/index.html'))
-        if (!ctx.status) ctx.throw(404)
     }
     catch(err){
         ctx.status = status.NOT_FOUND

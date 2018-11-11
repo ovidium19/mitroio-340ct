@@ -7,3 +7,4 @@ render(
     <h1>A new App store</h1>,
     document.getElementById('app')
 )
+
