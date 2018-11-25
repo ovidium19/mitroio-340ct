@@ -2,23 +2,21 @@ import React from 'react'
 import { connect} from 'react-redux'
 import {Route} from 'react-router-dom'
 import PropTypes from  'prop-types'
-import HomePage from './home/HomePage'
-import Header from './common/Header'
-import Account from './account/Account'
+import LoginPage from './Login/LoginPage'
 
-class App extends React.Component {
+
+class Account extends React.Component {
     render() {
       return (
         <div className="container-fluid">
             <Header/>
-            <Route exact path="/" component={HomePage}/>
-            <Route exact path="/account" component = {Account}/>
+            <Route exact path="/login" component = {LoginPage}/>
         </div>
       )
     }
   }
 
-App.propTypes = {
+Account.propTypes = {
     match: PropTypes.object.isRequired,
     loading: PropTypes.bool.isRequired
 }
@@ -29,4 +27,4 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(Account);
