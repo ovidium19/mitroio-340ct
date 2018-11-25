@@ -11,7 +11,7 @@ import config from '../webpack.config.dev'
 import webMid from 'koa-webpack-dev-middleware'
 import hotMid from 'koa-webpack-hot-middleware'
 
-const port = 8080
+const port = 8000
 const app = new Koa()
 app.use(koa_body())
 const compiler = webpack(config)
