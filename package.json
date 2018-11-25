@@ -11,7 +11,7 @@
     "test": "jest --coverage",
     "test:watch": "node_modules/.bin/jest --coverage --watchAll",
     "lint:fix": "esw --fix ",
-    "precommit": "npm-run-all test lint"
+    "precommit": "npm-run-all lint"
   },
   "repository": {
     "type": "git",
