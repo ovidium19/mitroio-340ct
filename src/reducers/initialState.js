@@ -1,3 +1,7 @@
 export default {
-    courses: []
+    courses: [],
+    asyncInProgress: 0,
+    user: {
+        username: ''
+    }
 }

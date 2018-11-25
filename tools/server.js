@@ -4,6 +4,7 @@ const koa_body = require('koa-bodyparser')
 const Router = require('koa-router')
 const status = require('http-status-codes')
 import path from 'path'
+import serve from 'koa-static'
 const sendfile = require('koa-sendfile')
 import webpack from 'webpack'
 import config from '../webpack.config.dev'
@@ -14,6 +15,7 @@ import hotMid from 'koa-webpack-hot-middleware'
 const port = 8000
 const app = new Koa()
 app.use(koa_body())
+app.use(serve(path.join(__dirname,'../static')))
 const compiler = webpack(config)
 const router = new Router()
 app.use(webMid(compiler),{
