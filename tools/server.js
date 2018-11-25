@@ -11,7 +11,7 @@ import config from '../webpack.config.dev'
 import webMid from 'koa-webpack-dev-middleware'
 import hotMid from 'koa-webpack-hot-middleware'
 
-const port = 3000
+const port = 8080
 const app = new Koa()
 app.use(koa_body())
 const compiler = webpack(config)
@@ -38,5 +38,7 @@ router.get('*', async ctx => {
 })
 app.use(router.routes())
 app.use(router.allowedMethods())
-const server  = app.listen(port)
+const server  = app.listen(port, () => {
+    console.log(`Listening on port ${port}`)
+})
 export default server
