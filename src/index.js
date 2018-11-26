@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import 'babel-polyfill'
 import configureStore from './store/configureStore'
 import App from './components/App'
+import Test from './components/common/Test'
 
 let store = configureStore()
 
@@ -16,5 +17,4 @@ render(
     </Provider>,
     document.getElementById('app')
   )
-
-  export default {}
+export default {}

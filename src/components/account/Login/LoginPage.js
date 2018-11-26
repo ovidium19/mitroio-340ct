@@ -8,8 +8,8 @@ import * as userActions from '../../../actions/userActions'
 import toastr from 'toastr'
 
 export class LoginPage extends React.Component {
-    constructor(props,context){
-        super(props,context)
+    constructor(props){
+        super(props)
         this.state = {
             user: Object.assign({},this.props.user),
             loading: false,
@@ -20,18 +20,27 @@ export class LoginPage extends React.Component {
         this.onSubmit = this.onSubmit.bind(this)
     }
     componentDidMount() {
+        this.setState({isMounted: true})
         console.log('Mounted LoginPage')
     }
     componentWillUnmount() {
         console.log('Unmounting')
+        this.setState({isMounted: false})
     }
-    async onStateUpdate(event) {
+    onStateUpdate(event) {
         const field = event.target.name
         const user = Object.assign({},this.state.user)
 
         user[field] = event.target.value
-        await this.setState({user})
-        return
+        console.log(user)
+        if (this.state.isMounted){
+            this.setState({
+                user: user
+            }, () => {
+                console.log("set state")
+            })
+        }
+
     }
     onSubmit(event) {
         event.preventDefault()
@@ -65,6 +74,7 @@ export class LoginPage extends React.Component {
                 loading = {this.state.loading}
                 errors = {this.state.errors}
                 user = {this.state.user} />
+                <input type='text' name='username' value={this.state.user.username} onChange={this.onStateUpdate}/>
             </div>
             )
     }
@@ -75,7 +85,10 @@ LoginPage.propTypes = {
 }
 function mapStateToProps(state,ownProps) {
     return {
-        user: state.user
+        user: {
+            username: '',
+            password: ''
+        }
     }
 }
 function mapDispatchToProps(dispatch){
