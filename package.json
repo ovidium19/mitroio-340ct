@@ -8,7 +8,7 @@
     "open:src": "babel-node tools/server.js",
     "lint": "node_modules/.bin/esw webpack.config.* src tools",
     "lint:watch": "npm run lint -- --watch",
-    "test": "jest --coverage",
+    "test": "jest",
     "test:watch": "node_modules/.bin/jest --coverage --watchAll",
     "lint:fix": "esw --fix ",
     "precommit": "npm-run-all lint"
@@ -29,6 +29,11 @@
   "jest": {
     "testEnvironment": "node",
     "verbose": true,
+    "setupTestFrameworkScriptFile": "<rootDir>/tools/testSetup.js",
+    "testURL": "http://localhost",
+    "moduleNameMapper": {
+        "\\.(css|jpg|png|less)$": "<rootDir>/tools/emptyModule.js"
+    },
     "coverageThreshold": {
       "global": {
         "branches": 100,
@@ -81,6 +86,7 @@
     "eslint-watch": "^4.0.2",
     "file-loader": "^2.0.0",
     "jest": "^23.6.0",
+    "jsdom": "^13.0.0",
     "koa-webpack-dev-middleware": "^2.0.2",
     "koa-webpack-hot-middleware": "^1.0.3",
     "less-loader": "^4.1.0",

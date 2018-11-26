@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { NavLink, withRouter } from 'react-router-dom'
 import {connect} from 'react-redux'
 
-const AccountMenu = ({logged, location, username}) => (
+const AccountMenu = ({logged, username}) => (
     <React.Fragment>
         { !logged ?
             <ul className="navbar-nav ml-auto">
@@ -31,8 +31,8 @@ const AccountMenu = ({logged, location, username}) => (
     </React.Fragment>
 )
 AccountMenu.propTypes = {
-    location: PropTypes.object.isRequired,
+    location: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
     logged: PropTypes.bool.isRequired
 }
-export default withRouter(AccountMenu)
+export default AccountMenu

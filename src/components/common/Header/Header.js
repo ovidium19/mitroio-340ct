@@ -5,8 +5,12 @@ import {connect} from 'react-redux'
 import UserMenu from './UserMenu'
 import AccountMenu from './AccountMenu'
 import './Header.less'
-const Header = ({location, username, logged}) => {
-    console.log(location)
+export const Header = ({location, username, logged}) => {
+    const propsToPass = {
+        username,
+        logged,
+        location: location.pathname
+    }
     if (/(login|register)$/g.test(location.pathname)){
         return null
     }
@@ -18,8 +22,8 @@ const Header = ({location, username, logged}) => {
                 <span className="navbar-toggler-icon"/>
             </button>
             <div className="collapse navbar-collapse" id="navLinks">
-                <UserMenu {...{username,logged}} />
-                <AccountMenu {...{username,logged}} />
+                <UserMenu {...propsToPass} />
+                <AccountMenu {...propsToPass} />
             </div>
     </nav>
 )}
