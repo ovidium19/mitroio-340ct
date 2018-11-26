@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import 'babel-polyfill'
 import configureStore from './store/configureStore'
 import App from './components/App'
-import Test from './components/common/Test'
+import '../node_modules/toastr/build/toastr.min.css'
 
 let store = configureStore()
 

@@ -21,6 +21,8 @@ const LoginForm = ({onChange, onSubmit, loading, errors, user}) => (
         label='Password'
         placeholder='Enter password'
         type='password' />
+
+        <input type='submit' onClick = {onSubmit} className='btn btn-primary' value='Submit' disabled={loading} />
     </form>
 )
 LoginForm.propTypes = {

@@ -20,36 +20,24 @@ export class LoginPage extends React.Component {
         this.onSubmit = this.onSubmit.bind(this)
     }
     componentDidMount() {
-        this.setState({isMounted: true})
         console.log('Mounted LoginPage')
-    }
-    componentWillUnmount() {
-        console.log('Unmounting')
-        this.setState({isMounted: false})
     }
     onStateUpdate(event) {
         const field = event.target.name
         const user = Object.assign({},this.state.user)
 
         user[field] = event.target.value
-        console.log(user)
-        if (this.state.isMounted){
-            this.setState({
-                user: user
-            }, () => {
-                console.log("set state")
-            })
-        }
+        this.setState({user})
 
     }
     onSubmit(event) {
         event.preventDefault()
         this.setState({loading: true})
 
-        this.props.actions.loginUser(this.state.user)
+        this.props.actions.logInUser(this.state.user)
             .then(() => this.redirect())
             .catch(err => {
-                toastr.error(err.message)
+                toastr.error(err)
                 this.setState({loading: false})
             })
     }
@@ -74,7 +62,6 @@ export class LoginPage extends React.Component {
                 loading = {this.state.loading}
                 errors = {this.state.errors}
                 user = {this.state.user} />
-                <input type='text' name='username' value={this.state.user.username} onChange={this.onStateUpdate}/>
             </div>
             )
     }

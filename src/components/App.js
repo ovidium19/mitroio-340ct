@@ -5,8 +5,6 @@ import PropTypes from  'prop-types'
 import HomePage from './home/HomePage'
 import Header from './common/Header/Header'
 import Account from './account/Account'
-import LoginPage from './account/Login/LoginPage'
-import Test from './common/Test'
 
 class App extends React.Component {
     render() {
@@ -14,8 +12,7 @@ class App extends React.Component {
         <div className="container-fluid">
             <Header/>
             <Route exact path="/" component={HomePage}/>
-            <Route path="/account/login" component = {LoginPage}/>
-            <Route path='/test' component = {Test} />
+            <Route path="/account" component = {Account}/>
         </div>
       )
     }

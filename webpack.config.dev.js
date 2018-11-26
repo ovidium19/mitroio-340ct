@@ -39,6 +39,16 @@ export default {
         }]
         },
         {
+            test: /(\.css)$/,
+            use: [
+              'style-loader',
+              {
+                loader: 'css-loader',
+                options: {sourcemap: true}
+              }
+            ]
+          },
+        {
             test: /\.(png|jpg|gif)$/,
             use: [
                 {
