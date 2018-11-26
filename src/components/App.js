@@ -3,7 +3,7 @@ import { connect} from 'react-redux'
 import {Route} from 'react-router-dom'
 import PropTypes from  'prop-types'
 import HomePage from './home/HomePage'
-import Header from './common/Header'
+import Header from './common/Header/Header'
 import Account from './account/Account'
 
 class App extends React.Component {
