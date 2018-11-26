@@ -1,2 +1,3 @@
 export const ASYNC_ERROR = 'ASYNC_ERROR'
 export const BEGIN_ASYNC_OP = 'BEGIN_ASYNC_OP'
+export const USER_LOG_IN_SUCCESS = 'USER_LOG_IN'

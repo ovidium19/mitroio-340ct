@@ -12,7 +12,7 @@ class App extends React.Component {
         <div className="container-fluid">
             <Header/>
             <Route exact path="/" component={HomePage}/>
-            <Route exact path="/account" component = {Account}/>
+            <Route path="/account" component = {Account}/>
         </div>
       )
     }

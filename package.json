@@ -32,7 +32,7 @@
     "setupTestFrameworkScriptFile": "<rootDir>/tools/testSetup.js",
     "testURL": "http://localhost",
     "moduleNameMapper": {
-        "\\.(css|jpg|png|less)$": "<rootDir>/tools/emptyModule.js"
+      "\\.(css|jpg|png|less)$": "<rootDir>/tools/emptyModule.js"
     },
     "coverageThreshold": {
       "global": {
@@ -46,6 +46,7 @@
   "author": "Ovidiu Mitroi",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "eventsource-polyfill": "^0.9.6",
     "http-status-codes": "^1.3.0",

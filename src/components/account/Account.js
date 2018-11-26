@@ -6,13 +6,15 @@ import LoginPage from './Login/LoginPage'
 
 
 class Account extends React.Component {
+    constructor(props, context){
+        super(props,context)
+    }
     render() {
-      return (
-        <div className="container-fluid">
-            <Header/>
-            <Route exact path="/login" component = {LoginPage}/>
-        </div>
-      )
+        return (
+        <React.Fragment>
+            <Route exact path={`${this.props.match.path}/login`} component = {LoginPage}/>
+        </React.Fragment>
+        )
     }
   }
 
@@ -27,4 +29,4 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps)(Account);
+export default connect(mapStateToProps)(Account)
