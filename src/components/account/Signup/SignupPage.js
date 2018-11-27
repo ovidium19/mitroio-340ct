@@ -3,16 +3,16 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {Redirect} from 'react-router-dom'
-import LoginForm from './LoginForm'
+import SignupForm from './SignupForm'
 import * as userActions from '../../../actions/userActions'
 import toastr from 'toastr'
 import '../Forms.less'
 
-export class LoginPage extends React.Component {
+export class SignupPage extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            user: Object.assign({},this.props.user),
+            user: Object.assign({},this.props.user, {repeatPassword: '', name: '', email: ''}),
             loading: false,
             redirect: false,
             errors: {}
@@ -21,7 +21,7 @@ export class LoginPage extends React.Component {
         this.onSubmit = this.onSubmit.bind(this)
     }
     componentDidMount() {
-        console.log('Mounted LoginPage')
+        console.log('Mounted SignupPage')
     }
     onStateUpdate(event) {
         const field = event.target.name
@@ -32,31 +32,47 @@ export class LoginPage extends React.Component {
 
     }
     validateForm() {
+        let error = false
+        let newErrors = {}
         if (this.state.user.password.length < 6)
         {
+            newErrors.password = 'Your password must contain at least 6 characters'
+            error = true
+        }
+        if (this.state.user.repeatPassword !== this.state.user.password) {
+            newErrors.repeatPassword = 'Your passwords don\'t match'
+            error = true
+        }
+
+        if (error) {
             this.setState({
-                errors: {
-                    password: 'Your password must contain at least 6 characters'
-                }
+                errors: newErrors
             })
             return false
         }
+        else{
+            this.setState({
+                errors: {}
+            })
+            return true
+        }
 
-        this.setState({
-            errors: {}
-        })
-        return true
     }
     onSubmit(event) {
         event.preventDefault()
         if (!(this.validateForm())) return
         this.setState({loading: true})
 
-        this.props.actions.logInUser(this.state.user)
+        this.props.actions.signUpUser(this.state.user)
             .then(() => this.redirect())
             .catch(err => {
-                toastr.error(err)
-                this.setState({loading: false})
+                console.log(err.response)
+                this.setState({
+                    errors: {
+                        username: err.response.data.data.detail
+                    },
+                    loading: false
+                })
             })
     }
     redirect() {
@@ -73,7 +89,7 @@ export class LoginPage extends React.Component {
             )
         }
         return (
-                <LoginForm
+                <SignupForm
                 onChange = {this.onStateUpdate}
                 onSubmit = {this.onSubmit}
                 loading = {this.state.loading}
@@ -82,16 +98,13 @@ export class LoginPage extends React.Component {
             )
     }
 }
-LoginPage.propTypes = {
+SignupPage.propTypes = {
     user: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired
 }
 function mapStateToProps(state,ownProps) {
     return {
-        user: {
-            username: '',
-            password: ''
-        }
+        user: state.user
     }
 }
 function mapDispatchToProps(dispatch){
@@ -100,4 +113,4 @@ function mapDispatchToProps(dispatch){
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(LoginPage)
+export default connect(mapStateToProps,mapDispatchToProps)(SignupPage)

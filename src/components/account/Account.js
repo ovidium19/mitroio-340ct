@@ -3,16 +3,20 @@ import { connect} from 'react-redux'
 import {Route} from 'react-router-dom'
 import PropTypes from  'prop-types'
 import LoginPage from './Login/LoginPage'
+import SignupPage from './Signup/SignupPage'
 
 
 class Account extends React.Component {
+    constructor(props, context){
+        super(props,context)
+    }
     render() {
-      return (
-        <div className="container-fluid">
-            <Header/>
-            <Route exact path="/login" component = {LoginPage}/>
-        </div>
-      )
+        return (
+        <React.Fragment>
+            <Route exact path={`${this.props.match.path}/login`} component = {LoginPage}/>
+            <Route exact path={`${this.props.match.path}/signup`} component = {SignupPage}/>
+        </React.Fragment>
+        )
     }
   }
 
@@ -27,4 +31,4 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps)(Account);
+export default connect(mapStateToProps)(Account)

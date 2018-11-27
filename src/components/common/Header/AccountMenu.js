@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { NavLink, withRouter } from 'react-router-dom'
 import {connect} from 'react-redux'
 
-const AccountMenu = ({logged, username}) => (
+const AccountMenu = ({logged, username, onSignOut}) => (
     <React.Fragment>
         { !logged ?
             <ul className="navbar-nav ml-auto">
@@ -20,7 +20,7 @@ const AccountMenu = ({logged, username}) => (
                     <NavLink to={`/user/${username}/account`} className='nav-link' activeClassName='active'>Account</NavLink>
                 </li>
                 <li className='nav-item'>
-                    <NavLink to={`/user/${username}/signout`} className='nav-link' activeClassName='active'>Sign Out</NavLink>
+                    <NavLink to={`/user/${username}/signout`} className='nav-link' activeClassName='active' onClick={onSignOut}>Sign Out</NavLink>
                 </li>
                 <span className="navbar-text text-light small">
                     {`Welcome ${username}`}
@@ -33,6 +33,7 @@ const AccountMenu = ({logged, username}) => (
 AccountMenu.propTypes = {
     location: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
-    logged: PropTypes.bool.isRequired
+    logged: PropTypes.bool.isRequired,
+    onSignOut: PropTypes.func.isRequired
 }
 export default AccountMenu

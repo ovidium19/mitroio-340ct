@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import UserMenu from './UserMenu'
 import AccountMenu from './AccountMenu'
 import './Header.less'
-export const Header = ({location, username, logged}) => {
+export const Header = ({location, username, logged, onSignOut}) => {
     const propsToPass = {
         username,
         logged,
@@ -23,14 +23,15 @@ export const Header = ({location, username, logged}) => {
             </button>
             <div className="collapse navbar-collapse" id="navLinks">
                 <UserMenu {...propsToPass} />
-                <AccountMenu {...propsToPass} />
+                <AccountMenu {...propsToPass} onSignOut={onSignOut} />
             </div>
     </nav>
 )}
 Header.propTypes = {
     location: PropTypes.object.isRequired,
     username: PropTypes.string.isRequired,
-    logged: PropTypes.bool.isRequired
+    logged: PropTypes.bool.isRequired,
+    onSignOut: PropTypes.func.isRequired
 }
 function mapStateToProps(state,ownProps) {
     return {

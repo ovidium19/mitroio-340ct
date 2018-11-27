@@ -5,6 +5,8 @@ import { Provider } from 'react-redux'
 import 'babel-polyfill'
 import configureStore from './store/configureStore'
 import App from './components/App'
+import '../node_modules/toastr/build/toastr.min.css'
+import './Index.less'
 
 let store = configureStore()
 
@@ -16,5 +18,4 @@ render(
     </Provider>,
     document.getElementById('app')
   )
-
-  export default {}
+export default {}

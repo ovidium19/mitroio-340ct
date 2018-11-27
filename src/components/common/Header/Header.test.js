@@ -2,7 +2,6 @@ import React from 'react'
 import {mount, shallow} from 'enzyme'
 import {MemoryRouter} from 'react-router-dom'
 import {Header} from './Header'
-import { wrap } from 'module';
 
 function setup(propsPassed = {}) {
     const defaultProps = {
