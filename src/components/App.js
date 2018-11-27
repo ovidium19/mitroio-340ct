@@ -7,6 +7,7 @@ import PropTypes from  'prop-types'
 import HomePage from './home/HomePage'
 import Header from './common/Header/Header'
 import Account from './account/Account'
+import LearnPage from './courses/LearnPage'
 import toastr from 'toastr'
 
 class App extends React.Component {
@@ -27,6 +28,7 @@ class App extends React.Component {
             <React.Fragment>
                 <Header onSignOut={this.onSignOut}/>
                 <Route exact path="/" component={HomePage}/>
+                <Route path='/courses' component={LearnPage} />
                 <Route path="/account" component = {Account}/>
             </React.Fragment>
 
