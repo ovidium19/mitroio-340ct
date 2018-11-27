@@ -3,6 +3,7 @@ import { connect} from 'react-redux'
 import {Route} from 'react-router-dom'
 import PropTypes from  'prop-types'
 import LoginPage from './Login/LoginPage'
+import SignupPage from './Signup/SignupPage'
 
 
 class Account extends React.Component {
@@ -13,6 +14,7 @@ class Account extends React.Component {
         return (
         <React.Fragment>
             <Route exact path={`${this.props.match.path}/login`} component = {LoginPage}/>
+            <Route exact path={`${this.props.match.path}/signup`} component = {SignupPage}/>
         </React.Fragment>
         )
     }

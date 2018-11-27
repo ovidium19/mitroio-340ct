@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 const TextInput = ({name, label, placeholder, onChange, error, value, type}) => (
     <div className={`form-group ${error && 'has-error'}`}>
         <label htmlFor={name+'id'}>{label}</label>
-        <input type={type} className='form-control' value={value} name={name} placeholder={placeholder} onChange={onChange} id={name+'id'} />
+        <input type={type} className={`form-control ${error && 'border-danger'}`} value={value} name={name} placeholder={placeholder} onChange={onChange} id={name+'id'} />
         {error &&
-            <small id={name+'help'} className="form-text text-muted text-danger">{error}</small>
+            <small id={name+'help'} className="form-text text-danger">{error}</small>
         }
     </div>
 )
