@@ -12,6 +12,13 @@ export default function user(state=initialState.user, action){
                 password: ''
             }
         }
+        case types.USER_SIGN_UP_SUCCESS: {
+            console.log(action.user)
+            return {
+                username: action.user.username,
+                password: ''
+            }
+        }
     }
     return state
 }

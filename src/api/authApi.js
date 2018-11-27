@@ -30,6 +30,9 @@ export async function signup(credentials){
             'Authorization': generateAuthHeader(credentials)
         }
     }).then(res => {
-        return Object.assign({},res.data,{header})
+        return {
+            username: credentials.username,
+            password: ''
+        }
     })
 }

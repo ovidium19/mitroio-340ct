@@ -80,12 +80,12 @@ export class SignupPage extends React.Component {
             loading: false,
             redirect: true
         })
-        toastr.success(`Logged in as ${this.state.user.username}`)
+        toastr.success(`Account created, you may now log in to the system`)
     }
     render() {
         if (this.state.redirect) {
             return (
-                <Redirect to={`/user/${this.state.user.username}/hub`} />
+                <Redirect to={`/account/login`} />
             )
         }
         return (

@@ -10,7 +10,7 @@ const UserMenu = ({logged, location, username}) => (
                 <NavLink to='/' className='nav-link'>Home</NavLink>
             </li>
             <li className={`nav-item ${location == '/courses' ? 'active' : ''}`}>
-                <NavLink to='/courses' className='nav-link'>Courses</NavLink>
+                <NavLink to='/courses' className='nav-link'>Learn</NavLink>
             </li>
 
         { logged &&

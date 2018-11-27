@@ -88,10 +88,7 @@ LoginPage.propTypes = {
 }
 function mapStateToProps(state,ownProps) {
     return {
-        user: {
-            username: '',
-            password: ''
-        }
+        user: state.user
     }
 }
 function mapDispatchToProps(dispatch){
