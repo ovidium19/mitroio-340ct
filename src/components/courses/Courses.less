@@ -35,3 +35,30 @@
     }
 
 }
+.course-landing-content {
+    align-content: stretch;
+    flex: 1;
+    .course-page-list {
+        padding: 0;
+        margin: 0;
+        .course-menu-item{
+            padding: 0.4em;
+            border-bottom: 1px solid white;
+            p {
+                vertical-align: middle;
+                line-height: 1.5;
+            }
+            .go-to-page {
+                border: none;
+                background: none;
+                font-size: 1.3em;
+                &[disabled]{
+                    color: orange;
+                }
+                &:not([disabled]) {
+                    color: greenyellow;
+                }
+            }
+        }
+    }
+}

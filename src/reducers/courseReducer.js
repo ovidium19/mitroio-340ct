@@ -9,6 +9,12 @@ export default function courses(state=initialState.course, action){
         case (types.REMOVE_COURSE): {
             return {}
         }
+        case (types.SET_ACTIVE_COURSE): {
+            return action.course
+        }
+        case (types.SET_PROGRESS): {
+            return Object.assign({},state,{progress: [action.progress]})
+        }
     }
     return state
 }
