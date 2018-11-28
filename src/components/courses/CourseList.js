@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import CourseItem from './CourseItem'
 
-const CourseList = ({ courses, title}) =>
+const CourseList = ({ courses, title, onClick}) =>
     (
         <div className='card'>
             <div className='card-header text-white bg-dark'>
@@ -12,12 +12,13 @@ const CourseList = ({ courses, title}) =>
             <div id={`${title.replace(' ','')}`} className='card-body course-list-body d-flex flex-row flex-wrap align-items-start course-list'
             >
 
-                {courses.map((c,i) => <CourseItem o key={i} course={c}/>) }
+                {courses.map((c,i) => <CourseItem o key={i} course={c} onClick = {onClick}/>) }
             </div>
         </div>
     )
 CourseList.propTypes = {
     courses: PropTypes.arrayOf(PropTypes.object).isRequired,
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired
 }
 export default CourseList

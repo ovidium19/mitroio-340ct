@@ -9,6 +9,9 @@ export default function courses(state=initialState.course, action){
         case (types.REMOVE_COURSE): {
             return {}
         }
+        case (types.SET_ACTIVE_COURSE): {
+            return action.course
+        }
     }
     return state
 }

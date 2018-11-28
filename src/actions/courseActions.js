@@ -14,6 +14,16 @@ export function removeCourses() {
 export function removeCourse() {
     return {type: types.REMOVE_COURSE}
 }
+export function setActiveCourse(id) {
+    return (dispatch,getState) => {
+        const {courses} = getState()
+        let course = courses.find(c => c['_id'] === id)
+        dispatch({
+            type: types.SET_ACTIVE_COURSE,
+            course
+        })
+    }
+}
 export function getCourses(header, options){
     return (dispatch, getState) => {
         dispatch(beginAsyncOp())

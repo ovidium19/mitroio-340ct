@@ -21,6 +21,7 @@ export class LearnPage extends React.Component {
             },
             updated: false
         }
+        this.onNavigateToCourse = this.onNavigateToCourse.bind(this)
     }
 
     componentDidMount() {
@@ -55,12 +56,17 @@ export class LearnPage extends React.Component {
         })
         console.log("Unmounting LearnPage")
     }
-
+    onNavigateToCourse(event) {
+        event.preventDefault()
+        let id = event.target.attributes.courseid.nodeValue
+        this.props.actions.setActiveCourse(id)
+        this.props.history.push(`/course/${id}`)
+    }
     render() {
         return (
             <div className='container-fluid courses mt-3'>
             {this.props.courses.length > 0 ?
-                <CourseList title={'Courses available'} courses = {this.props.courses} />
+                <CourseList title={'Courses available'} courses = {this.props.courses} onClick = {this.onNavigateToCourse} />
                 : <p>Loading courses...</p>
             }
 
@@ -73,7 +79,8 @@ LearnPage.propTypes = {
     user: PropTypes.object.isRequired,
     courses: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired,
-    match: PropTypes.object.isRequired
+    match: PropTypes.object.isRequired,
+    history: PropTypes.object
 }
 function mapStateToProps(state,ownProps) {
     let user = {
