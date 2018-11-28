@@ -3,25 +3,20 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import CourseItem from './CourseItem'
 
-const CourseList = ({ onClick, courses, title}) =>
+const CourseList = ({ courses, title}) =>
     (
         <div className='card'>
-            <div className='card-header'
-            role='button'
-            datatoggle='collapse'
-            datatarget={`#${title.replace(' ','')}`}>
-
-                <h1>{title}</h1>
+            <div className='card-header text-white bg-dark'>
+                <h3>{title}</h3>
             </div>
-            <div className='card-body collapse d-flex flex-row justify-content-start align-items-start'
-            id={`#${title.replace(' ','')}`}>
+            <div id={`${title.replace(' ','')}`} className='card-body course-list-body d-flex flex-row flex-wrap align-items-start course-list'
+            >
 
-                {courses.map((c,i) => <CourseItem onClick={onClick} key={i} course={c}/>) }
+                {courses.map((c,i) => <CourseItem o key={i} course={c}/>) }
             </div>
         </div>
     )
 CourseList.propTypes = {
-    onClick: PropTypes.func.isRequired,
     courses: PropTypes.arrayOf(PropTypes.object).isRequired,
     title: PropTypes.string.isRequired
 }

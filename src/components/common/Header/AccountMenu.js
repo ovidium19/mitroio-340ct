@@ -11,7 +11,7 @@ const AccountMenu = ({logged, username, onSignOut}) => (
                     <NavLink to='/account/login' className='nav-link' activeClassName='active'>Log In</NavLink>
                 </li>
                 <li className='nav-item '>
-                    <NavLink to='/account/register' className='nav-link' activeClassName='active'>Register</NavLink>
+                    <NavLink to='/account/signup' className='nav-link' activeClassName='active'>Register</NavLink>
                 </li>
             </ul>
         :

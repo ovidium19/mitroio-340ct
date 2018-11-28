@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import {bindActionCreators} from 'redux'
 import * as courseActions from '../../actions/courseActions'
 import CourseList from './CourseList'
+import './Courses.less'
 
 export class LearnPage extends React.Component {
     constructor(props) {
@@ -13,7 +14,7 @@ export class LearnPage extends React.Component {
         this.state = {
             options: {
                 page: 1,
-                limit: 5,
+                limit: 6,
                 username: this.props.user.username,
                 random: false,
                 category: ''
@@ -21,6 +22,13 @@ export class LearnPage extends React.Component {
             updated: false
         }
         this.onClickCourse = this.onClickCourse.bind(this)
+    }
+    componentWillUnmount() {
+        this.props.actions.removeCourses()
+        this.setState({
+            updated: false
+        })
+        console.log("Unmounting LearnPage")
     }
     componentDidMount() {
         if (!this.state.updated) {
@@ -47,15 +55,12 @@ export class LearnPage extends React.Component {
             })
         }
     }
-    onClickCourse(event) {
-        console.log(event.target)
-    }
 
     render() {
         return (
-            <div className='container-fluid'>
+            <div className='container-fluid courses mt-3'>
             {this.props.courses.length > 0 ?
-                <CourseList onClick={this.onClickCourse} title={'Courses available'} courses = {this.props.courses} />
+                <CourseList title={'Courses available'} courses = {this.props.courses} />
                 : <p>Loading courses...</p>
             }
 

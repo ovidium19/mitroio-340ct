@@ -5,6 +5,9 @@ import * as courseDb from '../api/courseApi'
 function getCoursesSuccess(courses) {
     return {type: types.GET_COURSES_SUCCESS, courses}
 }
+export function removeCourses() {
+    return {type: types.REMOVE_COURSES}
+}
 export function getCourses(header, options){
     return (dispatch, getState) => {
         dispatch(beginAsyncOp())

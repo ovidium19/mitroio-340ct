@@ -7,6 +7,9 @@ export default function courses(state=initialState.courses, action){
 
             return action.courses
         }
+        case (types.REMOVE_COURSES): {
+            return []
+        }
     }
     return state
 }
