@@ -25,3 +25,14 @@ export async function getCourseById(header, options){
         }
     }).then(res => res.data[0])
 }
+export async function updateProgress(header, progressReport,id){
+    return axios({
+        url: `${coursesPath}/${id}/progress`,
+        baseURL: baseUrl,
+        method: 'PUT',
+        headers: {
+            'Authorization': header
+        },
+        data: progressReport
+    }).then(res => res.data)
+}

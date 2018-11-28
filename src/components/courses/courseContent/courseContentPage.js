@@ -6,11 +6,13 @@ import {bindActionCreators} from 'redux'
 import {Redirect, Link} from 'react-router-dom'
 import * as courseActions from '../../../actions/courseActions'
 import toastr from 'toastr'
-import StarRatingComponent from 'react-star-rating-component'
 import LoadingIcon from '../../common/LoadingIcon'
+import CourseMenuDisplay from './courseMenuDisplay'
+import PageRedacter from './PageRedacter'
+import './Page.less'
 
 
-export class CourseLandingPage extends React.Component {
+export class CourseContentPage extends React.Component {
     constructor(props) {
         super(props)
 
@@ -19,41 +21,111 @@ export class CourseLandingPage extends React.Component {
                 username: this.props.user.username,
                 id: this.props.match.params.id
             },
-            updated: false,
+            currentPage: this.props.progress.length > 0 ? this.props.progress[0].current_page : 1,
             redirect: false
         }
+        this.onMenuItemClick = this.onMenuItemClick.bind(this)
+        this.onNextPage = this.onNextPage.bind(this)
     }
 
     componentDidMount() {
-        /*
+
         if (!this.props.user.header) {
             this.redirectToLogin()
             return
         }
-        */
-        if (!this.state.updated) {
             this.props.actions.getCourseById(this.props.user.header, this.state.options)
-            .then(res => {
-                this.setState({
-                    updated: true
+            .then(result => {
+                this.updateProgress().then(res => {
+                    this.props.actions.setProgress(res)
+                }).catch(err => {
+                    this.setState({
+                        currentPage: this.props.progress[0].current_page
+                    })
                 })
+
             }).catch(err => {
                 console.log(err.response)
-                this.setState({
-                    updated: true
-                })
+
+
             })
         }
-    }
+
 
     componentWillUnmount() {
         this.props.actions.removeCourse()
-        this.setState({
-            updated: false
-        })
-        console.log("Unmounting CourseLandingPage")
+        console.log("Unmounting CourseContentPage")
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return true
+    }
+
+    async updateProgress(update) {
+        //just started course, update progress to the db for this user
+        let course = this.props.course
+        if (!(update)) {
+            if (course.progress.length == 0) {
+                let progressReport = {
+                    username: this.props.user.username,
+                    current_page: 1,
+                    finished: course.pages == 1
+                }
+
+                try{
+                    let dbRes = await this.props.actions.updateProgress(this.props.user.header,progressReport,course['_id'])
+                    return Promise.resolve(progressReport)
+                }
+                catch(err){
+                    console.log(err.response)
+                }
+
+            }
+            //if we have a progress report, load that into component state
+            else {
+                return Promise.reject("Already there")
+            }
+        }
+
+        else{
+            let progress = Object.assign({},this.props.course.progress[0])
+
+
+        }
+
+        //when progress report changes, update db progress report for this user
+    }
+    onMenuItemClick(event){
+        event.preventDefault()
+        let id = event.target.attributes.dataindex.nodeValue
+        this.setState({
+            currentPage: parseInt(id) + 1
+        })
+    }
+    onNextPage(event) {
+        event.preventDefault()
+        let newPage = this.state.currentPage + 1
+        this.setState({
+            currentPage: newPage
+        })
+        if (newPage > this.props.progress[0].current_page ){
+            //advancing to a new page, requires progress report update
+            let course = this.props.course
+            let progressReport = Object.assign({},this.props.progress[0],{
+                current_page: newPage,
+                finished: newPage >= course.pages
+            })
+            console.log(progressReport)
+            this.props.actions.updateProgress(this.props.user.header,progressReport,course['_id'])
+                .then(res => {this.props.actions.setProgress(progressReport)}).catch(err => console.log(err.response))
+
+        }
+        else {
+
+            //Just navigating pages, no progress update
+
+        }
+    }
     redirectToLogin() {
         this.setState({
             redirect: true
@@ -62,38 +134,28 @@ export class CourseLandingPage extends React.Component {
 
     }
     render() {
-        /*
         if (this.state.redirect) {
             return (
                 <Redirect to='/account/login' />
             )
         }
-        */
+
         return (
-            <div className='container-fluid course-landing-content mt-3'>
-                {  this.props.course.name ?
-                <div className='jumbotron jumbotron-fluid bg-dark text-white'>
-                    <div className='container'>
-                        <h2 className='display-4'>{this.props.course.name}</h2>
-                        <p className='text-muted'> Created by: {this.props.course.username} </p>
-                        <p className='lead'>{this.props.course.description}</p>
-                        <div className='row mt-2'>
-                            <div className='col-4'>
-                                <Link to={`/course/${this.props.course['_id']}/learn`} className='btn btn-success text-white'>Learn</Link>
-                            </div>
-                            <div className='col-2' />
-                            <div className='col-4 text-right'>
-                                <StarRatingComponent
-                                    name={ this.props.course.name.replace(' ','')}
-                                    emptyStarColor = {'lightgray'}
-                                    editing={false}
-                                    starCount = {5}
-                                    value = {this.props.course.avg_rating}
-                                />
-                            </div>
+            <div className='container-fluid course-landing-content row px-0 mx-0'>
+                {  this.props.course.content ?
+                (
+                    <React.Fragment>
+                        <div className='col-md-8 col-lg-9'>
+                            <PageRedacter page={this.props.course.content.pages[this.state.currentPage-1]} />
+                            <button className='btn btn-primary' onClick={this.onNextPage}>Next Page</button>
                         </div>
-                    </div>
-                </div>
+                        <CourseMenuDisplay
+                        title={this.props.course.name}
+                        pages={this.props.course.content.pages}
+                        onClick={this.onMenuItemClick}
+                        currentPage={this.props.progress ? this.props.progress[0].current_page : 0 } />
+                    </React.Fragment>
+                  )
                 : <LoadingIcon />
                 }
          </div>
@@ -102,12 +164,13 @@ export class CourseLandingPage extends React.Component {
     }
 }
 
-CourseLandingPage.propTypes = {
+CourseContentPage.propTypes = {
     user: PropTypes.object.isRequired,
     course: PropTypes.object,
     actions: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
-    loading: PropTypes.bool.isRequired
+    loading: PropTypes.bool.isRequired,
+    progress: PropTypes.array
 }
 function mapStateToProps(state,ownProps) {
     let user = {
@@ -121,7 +184,8 @@ function mapStateToProps(state,ownProps) {
     return {
         user,
         course: state.course,
-        loading: state.asyncCallsInProgress > 0
+        loading: state.asyncCallsInProgress > 0,
+        progress: state.course.progress ? [state.course.progress.find(p => p.username == user.username)] : []
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -129,4 +193,4 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(courseActions,dispatch)
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(CourseLandingPage)
+export default connect(mapStateToProps,mapDispatchToProps)(CourseContentPage)

@@ -9,7 +9,8 @@ import Header from './common/Header/Header'
 import Account from './account/Account'
 import LearnPage from './courses/LearnPage'
 import toastr from 'toastr'
-import CourseLandingPage from './courses/courseContent/CourseLandingPage';
+import CourseLandingPage from './courses/courseContent/CourseLandingPage'
+import CourseContentPage from './courses/courseContent/courseContentPage'
 
 class App extends React.Component {
     constructor(props){
@@ -30,7 +31,8 @@ class App extends React.Component {
                 <Header onSignOut={this.onSignOut}/>
                 <Route exact path="/" component={HomePage}/>
                 <Route exact path='/courses' component={LearnPage} />
-                <Route path='/course/:id' component={CourseLandingPage} />
+                <Route exact path='/course/:id' component={CourseLandingPage} />
+                <Route exact path='/course/:id/learn' component={CourseContentPage} />
                 <Route path="/account" component = {Account}/>
             </React.Fragment>
 
