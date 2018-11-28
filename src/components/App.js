@@ -9,6 +9,7 @@ import Header from './common/Header/Header'
 import Account from './account/Account'
 import LearnPage from './courses/LearnPage'
 import toastr from 'toastr'
+import CourseLandingPage from './courses/courseContent/CourseLandingPage';
 
 class App extends React.Component {
     constructor(props){
@@ -28,7 +29,8 @@ class App extends React.Component {
             <React.Fragment>
                 <Header onSignOut={this.onSignOut}/>
                 <Route exact path="/" component={HomePage}/>
-                <Route path='/courses' component={LearnPage} />
+                <Route exact path='/courses' component={LearnPage} />
+                <Route path='/course/:id' component={CourseLandingPage} />
                 <Route path="/account" component = {Account}/>
             </React.Fragment>
 

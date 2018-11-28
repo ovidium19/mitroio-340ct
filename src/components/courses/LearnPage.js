@@ -21,15 +21,8 @@ export class LearnPage extends React.Component {
             },
             updated: false
         }
-        this.onClickCourse = this.onClickCourse.bind(this)
     }
-    componentWillUnmount() {
-        this.props.actions.removeCourses()
-        this.setState({
-            updated: false
-        })
-        console.log("Unmounting LearnPage")
-    }
+
     componentDidMount() {
         if (!this.state.updated) {
             let options = {
@@ -54,6 +47,13 @@ export class LearnPage extends React.Component {
                 })
             })
         }
+    }
+    componentWillUnmount() {
+        this.props.actions.removeCourses()
+        this.setState({
+            updated: false
+        })
+        console.log("Unmounting LearnPage")
     }
 
     render() {

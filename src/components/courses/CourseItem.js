@@ -14,7 +14,7 @@ const CourseItem = ({course}) =>
                 <p className='card-text px-1v course-description'>{course.description &&  course.description.substring(0,80)+'...'}</p>
                 <div className='row mt-2'>
                     <div className='col-4'>
-                        <Link to={`/courses/${course['_id']}`} className='btn btn-success text-white'>Learn</Link>
+                        <Link to={`/course/${course['_id']}`} className='btn btn-success text-white'>Details</Link>
                     </div>
                     <div className='col-2' />
                     <div className='col-4 text-right'>

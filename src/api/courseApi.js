@@ -14,3 +14,14 @@ export async function getCourses(header, options){
         }
     }).then(res => res.data)
 }
+export async function getCourseById(header, options){
+    return axios({
+        url: `${coursesPath}/${options.id}`,
+        baseURL: baseUrl,
+        method: 'GET',
+        params: options,
+        headers: {
+            'Authorization': header
+        }
+    }).then(res => res.data[0])
+}
