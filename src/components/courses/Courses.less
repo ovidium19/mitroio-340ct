@@ -1,0 +1,37 @@
+.courses {
+    .course-list {
+
+        background-color: lightgray;
+
+        justify-content: space-around;
+        align-content: stretch;
+        .course-item {
+            .card-header{
+                font-weight: bold;
+                border-bottom: 1px solid white;
+            }
+            .course-description {
+                min-height: 80px;
+            }
+            .course-category{
+                color: greenyellow;
+            }
+            min-height: 250px;
+
+            @media all and (max-width: 1149px ) {
+                margin: 1em 0;
+                flex: 0 0 50%;
+            }
+            @media all and (max-width: 680px) {
+                min-height: 200px;
+                margin: 1em 10%;
+                flex: 0 0 80%;
+            }
+            @media all and (min-width: 1150px ) {
+
+                flex: 0 0 33%;
+            }
+        }
+    }
+
+}

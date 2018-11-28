@@ -17,7 +17,7 @@ export const Header = ({location, username, logged, onSignOut}) => {
 
     return (
     <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
-            <a className="navbar-brand" href="#"><img className='material-icons md-light md-48' src='/brand.png'/> </a>
+            <a className="navbar-brand" href="/"><i className='fa fa-user-graduate fa-3x text-white' /> </a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navLinks">
                 <span className="navbar-toggler-icon"/>
             </button>
