@@ -57,3 +57,14 @@ export async function getCoursesForUser(header,options) {
         }
     }).then(res => res.data)
 }
+export async function rateCourse(header,rating,course_id) {
+    return axios({
+        url: `${coursesPath}/${course_id}/rate`,
+        baseURL: baseUrl,
+        method: 'PUT',
+        headers: {
+            'Authorization': header
+        },
+        data: rating
+    }).then(res => res.data)
+}

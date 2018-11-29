@@ -21,9 +21,11 @@ export class HubPage extends React.Component {
                 random: false,
                 category: ''
             },
-            updated: false
+            updated: false,
+            courseClicked: ''
         }
         this.onNavigateToCourse = this.onNavigateToCourse.bind(this)
+        this.onUserRatingChanged = this.onUserRatingChanged.bind(this)
     }
 
     componentDidMount() {
@@ -69,11 +71,36 @@ export class HubPage extends React.Component {
         this.props.actions.setActiveCourse(id)
         this.props.history.push(`/course/${id}`)
     }
+    onUserRatingChanged(value, prev, name, e) {
+        console.log(name)
+        let course = this.props.courses.find(c => c['_id'] == name)
+        this.setState({
+            courseClicked: name
+        })
+        let rating = {
+            username: this.props.user.username,
+            rating: value
+        }
+        this.props.actions.rateCourse(this.props.user.header,rating,course['_id'])
+            .then(res => {
+                this.props.actions.setRating(rating, course['_id'])
+                console.log(res)
+                this.setState({
+                    courseClicked: ''
+                })
+
+            })
+    }
     renderCourseList(courses,callback) {
         return (
             <React.Fragment>
                  {courses.length > 0 ?
-                <CourseList title={'Courses you have seen'} courses = {courses} onClick = {callback} />
+                <CourseList
+                title={'Courses you have seen'}
+                courses = {courses}
+                onClick = {callback}
+                onUserRatingChanged = {this.onUserRatingChanged}
+                courseClicked = {this.state.courseClicked} />
                 :
                 <p>
                 {'You haven\'t progressed on any available courses. See courses at this ' }
@@ -93,7 +120,7 @@ export class HubPage extends React.Component {
         return (
             <div className='container-fluid courses mt-3'>
             {
-                this.props.loading ? <LoadingIcon /> : this.renderCourseList(this.props.courses, this.onNavigateToCourse)
+                this.props.courses.length > 0 ? this.renderCourseList(this.props.courses, this.onNavigateToCourse): <LoadingIcon />
 
             }
 
