@@ -13,6 +13,14 @@ export default function courses(state=initialState.courses, action){
         case (types.GET_COURSES_FOR_USER_HUB_SUCCESS): {
             return action.courses
         }
+        case (types.SET_RATING): {
+            console.log(action)
+            let index = state.findIndex(c => c['_id'] == action.params.id)
+            let newObj = Object.assign({}, state[index], {ratings: [action.params.rating]})
+            let newState = Array.from(state)
+            newState[index] = newObj
+            return newState
+        }
     }
     return state
 }

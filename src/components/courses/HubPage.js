@@ -73,9 +73,23 @@ export class HubPage extends React.Component {
     }
     onUserRatingChanged(value, prev, name, e) {
         console.log(name)
+        let course = this.props.courses.find(c => c['_id'] == name)
         this.setState({
             courseClicked: name
         })
+        let rating = {
+            username: this.props.user.username,
+            rating: value
+        }
+        this.props.actions.rateCourse(this.props.user.header,rating,course['_id'])
+            .then(res => {
+                this.props.actions.setRating(rating, course['_id'])
+                console.log(res)
+                this.setState({
+                    courseClicked: ''
+                })
+
+            })
     }
     renderCourseList(courses,callback) {
         return (
@@ -106,7 +120,7 @@ export class HubPage extends React.Component {
         return (
             <div className='container-fluid courses mt-3'>
             {
-                this.props.loading ? <LoadingIcon /> : this.renderCourseList(this.props.courses, this.onNavigateToCourse)
+                this.props.courses.length > 0 ? this.renderCourseList(this.props.courses, this.onNavigateToCourse): <LoadingIcon />
 
             }
 

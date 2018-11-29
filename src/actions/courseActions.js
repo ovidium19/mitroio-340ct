@@ -17,6 +17,9 @@ function getCoursesForUserSuccess(courses) {
 function postGradeSuccess() {
     return {type: types.POST_GRADES_SUCCESS }
 }
+function rateCourseSuccess() {
+    return {type: types.RATE_COURSE_SUCCESS }
+}
 export function removeCourses() {
     return {type: types.REMOVE_COURSES}
 }
@@ -25,6 +28,12 @@ export function removeCourse() {
 }
 export function setProgress(progress) {
     return {type: types.SET_PROGRESS, progress}
+}
+export function setRating(rating,id) {
+    return {type: types.SET_RATING, params: {
+        rating,
+        id
+    }}
 }
 export function goToNextPage(page) {
     return {type: types.GO_TO_NEXT_PAGE, page}
@@ -93,6 +102,17 @@ export function getCoursesForUserHub(header,options) {
         console.log(options)
         return courseDb.getCoursesForUser(header,options).then(res => {
             dispatch(getCoursesForUserSuccess(res))
+        }).catch(err => {
+            dispatch(asyncError(err))
+            throw(err)
+        })
+    }
+}
+export function rateCourse(header,rating,course_id) {
+    return (dispatch, getState) => {
+        dispatch(beginAsyncOp())
+        return courseDb.rateCourse(header,rating,course_id).then(res => {
+            dispatch(rateCourseSuccess(res))
         }).catch(err => {
             dispatch(asyncError(err))
             throw(err)

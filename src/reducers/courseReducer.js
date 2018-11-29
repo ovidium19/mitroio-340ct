@@ -15,6 +15,7 @@ export default function courses(state=initialState.course, action){
         case (types.SET_PROGRESS): {
             return Object.assign({},state,{progress: [action.progress]})
         }
+
     }
     return state
 }

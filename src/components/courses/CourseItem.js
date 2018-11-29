@@ -64,7 +64,7 @@ const CourseItem = ({course, onClick, onRatingClick, courseClicked}) => {
                     <div className='col-4 text-right'>
                         <p className='p-0 m-0 mb-1'>Course Rating</p>
                         <StarRatingComponent
-                            name={course.name.replace(' ','')}
+                            name={course['_id']}
                             emptyStarColor = {'lightgray'}
                             editing={false}
                             starCount = {5}
@@ -73,23 +73,6 @@ const CourseItem = ({course, onClick, onRatingClick, courseClicked}) => {
                     </div>
                 </div>
                 <div className='d-flex flex-column justify-content-start align-items-start'>
-                    {course.ratings && course.ratings.length > 0 &&
-                        <div className='course-user-rating w-100 row'>
-                            <p className='col-5 m-0 p-0'>Your rating: </p>
-                            <div className='col m-0 p-0'>
-                            {
-                                course.ratings.length > 0 &&
-                                <StarRatingComponent
-                                    name={course.name.replace(' ','')+course.ratings[0].username}
-                                    emptyStarColor = {'lightgray'}
-                                    editing={false}
-                                    starCount = {5}
-                                    value = {course.ratings[0].rating}/>
-                            }
-                            </div>
-
-                        </div>
-                    }
                     {
                         course.assessments && course.assessments.length > 0 &&
                         <div className='course-user-grade w-100 row'>
