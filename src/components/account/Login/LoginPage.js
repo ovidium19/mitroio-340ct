@@ -53,7 +53,9 @@ export class LoginPage extends React.Component {
         this.setState({loading: true})
 
         this.props.actions.logInUser(this.state.user)
-            .then(() => this.redirect())
+            .then(() => {
+                this.redirect()
+            })
             .catch(err => {
                 toastr.error(err)
                 this.setState({loading: false})

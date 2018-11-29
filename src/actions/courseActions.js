@@ -11,6 +11,12 @@ function getCourseSuccess(course) {
 function updateProgressSuccess() {
     return {type: types.UPDATE_COURSE_PROGRESS_SUCCESS }
 }
+function getCoursesForUserSuccess(courses) {
+    return { type: types.GET_COURSES_FOR_USER_HUB_SUCCESS, courses}
+}
+function postGradeSuccess() {
+    return {type: types.POST_GRADES_SUCCESS }
+}
 export function removeCourses() {
     return {type: types.REMOVE_COURSES}
 }
@@ -62,6 +68,31 @@ export function updateProgress(header, progressReport, id) {
         return courseDb.updateProgress(header,progressReport,id).then(res => {
             dispatch(updateProgressSuccess())
             return res
+        }).catch(err => {
+            dispatch(asyncError(err))
+            throw(err)
+        })
+    }
+}
+
+export function postGrades(header, data, username, courseid) {
+    return (dispatch,getState) => {
+        dispatch(beginAsyncOp())
+        return courseDb.postGrades(header,data,username,courseid).then(res => {
+            dispatch(postGradeSuccess())
+            return res
+        }).catch(err => {
+            dispatch(asyncError(err))
+            throw(err)
+        })
+    }
+}
+export function getCoursesForUserHub(header,options) {
+    return (dispatch, getState) => {
+        dispatch(beginAsyncOp())
+        console.log(options)
+        return courseDb.getCoursesForUser(header,options).then(res => {
+            dispatch(getCoursesForUserSuccess(res))
         }).catch(err => {
             dispatch(asyncError(err))
             throw(err)

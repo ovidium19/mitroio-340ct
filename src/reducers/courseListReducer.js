@@ -10,6 +10,9 @@ export default function courses(state=initialState.courses, action){
         case (types.REMOVE_COURSES): {
             return []
         }
+        case (types.GET_COURSES_FOR_USER_HUB_SUCCESS): {
+            return action.courses
+        }
     }
     return state
 }

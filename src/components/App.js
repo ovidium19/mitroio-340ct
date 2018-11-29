@@ -11,6 +11,8 @@ import LearnPage from './courses/LearnPage'
 import toastr from 'toastr'
 import CourseLandingPage from './courses/courseContent/CourseLandingPage'
 import CourseContentPage from './courses/courseContent/courseContentPage'
+import AssessmentPage from './courses/assessment/AssessmentPage'
+import HubPage from './courses/HubPage'
 
 class App extends React.Component {
     constructor(props){
@@ -33,6 +35,8 @@ class App extends React.Component {
                 <Route exact path='/courses' component={LearnPage} />
                 <Route exact path='/course/:id' component={CourseLandingPage} />
                 <Route exact path='/course/:id/learn' component={CourseContentPage} />
+                <Route exact path='/course/:id/assess' component={AssessmentPage} />
+                <Route exact path='/user/:username/hub' component={HubPage} />
                 <Route path="/account" component = {Account}/>
             </React.Fragment>
 

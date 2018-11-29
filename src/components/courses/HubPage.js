@@ -1,14 +1,15 @@
-import {Link} from 'react-router-dom'
+import {Redirect, Link} from 'react-router-dom'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {bindActionCreators} from 'redux'
 import * as courseActions from '../../actions/courseActions'
 import CourseList from './CourseList'
-import LoadingIcon from '../common/LoadingIcon'
 import './Courses.less'
+import toastr from 'toastr'
+import LoadingIcon from '../common/LoadingIcon'
 
-export class LearnPage extends React.Component {
+export class HubPage extends React.Component {
     constructor(props) {
         super(props)
 
@@ -26,21 +27,20 @@ export class LearnPage extends React.Component {
     }
 
     componentDidMount() {
+        if (!(this.props.user.header)) {
+            this.redirectTo('/account/login')
+            toastr.warning('You must login first to see this content')
+            return
+        }
         if (!this.state.updated) {
             let options = {
-                page: this.state.options.page,
-                limit: this.state.options.limit,
                 username: this.state.options.username
             }
-            if (this.state.options.random) options.random = this.state.options.random
-            if (this.state.options.category) options.category = this.state.options.category
 
-            this.props.actions.getCourses(this.props.user.header, options)
+            this.props.actions.getCoursesForUserHub(this.props.user.header, options)
             .then(res => {
-                let next = this.state.options.page + 1
                 this.setState({
-                    updated: true,
-                    options: Object.assign({},this.state.options,{page: next})
+                    updated: true
                 })
             }).catch(err => {
                 console.log(err.response)
@@ -55,7 +55,13 @@ export class LearnPage extends React.Component {
         this.setState({
             updated: false
         })
-        console.log("Unmounting LearnPage")
+        console.log("Unmounting HubPage")
+    }
+    redirectTo(link) {
+        this.setState({
+            redirect: true,
+            link
+        })
     }
     onNavigateToCourse(event) {
         event.preventDefault()
@@ -63,25 +69,47 @@ export class LearnPage extends React.Component {
         this.props.actions.setActiveCourse(id)
         this.props.history.push(`/course/${id}`)
     }
+    renderCourseList(courses,callback) {
+        return (
+            <React.Fragment>
+                 {courses.length > 0 ?
+                <CourseList title={'Courses you have seen'} courses = {courses} onClick = {callback} />
+                :
+                <p>
+                {'You haven\'t progressed on any available courses. See courses at this ' }
+                <Link to='/courses' >Link</Link>
+                </p>
+                }
+            </React.Fragment>
+
+        )
+    }
     render() {
+        if (this.state.redirect) {
+            return (
+                <Redirect to={this.state.link} />
+            )
+        }
         return (
             <div className='container-fluid courses mt-3'>
-            {this.props.courses.length > 0 ?
-                <CourseList title={'Courses available'} courses = {this.props.courses} onClick = {this.onNavigateToCourse} />
-                : <LoadingIcon />
+            {
+                this.props.loading ? <LoadingIcon /> : this.renderCourseList(this.props.courses, this.onNavigateToCourse)
+
             }
+
 
             </div>
         )
     }
 }
 
-LearnPage.propTypes = {
+HubPage.propTypes = {
     user: PropTypes.object.isRequired,
     courses: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
-    history: PropTypes.object
+    history: PropTypes.object,
+    loading: PropTypes.bool.isRequired
 }
 function mapStateToProps(state,ownProps) {
     let user = {
@@ -103,4 +131,4 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(courseActions,dispatch)
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(LearnPage)
+export default connect(mapStateToProps,mapDispatchToProps)(HubPage)

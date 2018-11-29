@@ -22,7 +22,9 @@ export class CourseContentPage extends React.Component {
                 id: this.props.match.params.id
             },
             currentPage: this.props.progress.length > 0 ? this.props.progress[0].current_page : 1,
-            redirect: false
+            buttonMessage: '',
+            redirect: false,
+            finished: false
         }
         this.onMenuItemClick = this.onMenuItemClick.bind(this)
         this.onNextPage = this.onNextPage.bind(this)
@@ -38,9 +40,14 @@ export class CourseContentPage extends React.Component {
             .then(result => {
                 this.updateProgress().then(res => {
                     this.props.actions.setProgress(res)
-                }).catch(err => {
                     this.setState({
-                        currentPage: this.props.progress[0].current_page
+                        buttonMessage: this.setButtonMessage(1)
+                    })
+                }).catch(err => {
+                    let btnMsg = this.setButtonMessage(this.props.progress[0].current_page)
+                    this.setState({
+                        currentPage: this.props.progress[0].current_page,
+                        buttonMessage: btnMsg
                     })
                 })
 
@@ -51,16 +58,14 @@ export class CourseContentPage extends React.Component {
             })
         }
 
-
-    componentWillUnmount() {
-        this.props.actions.removeCourse()
-        console.log("Unmounting CourseContentPage")
-    }
-
     shouldComponentUpdate(nextProps, nextState) {
         return true
     }
-
+    setButtonMessage(page) {
+        let btnMsg = page >= this.props.course.pages ?
+                        'Assessment' : this.props.course.content.pages[page].title
+        return btnMsg
+    }
     async updateProgress(update) {
         //just started course, update progress to the db for this user
         let course = this.props.course
@@ -98,26 +103,43 @@ export class CourseContentPage extends React.Component {
     onMenuItemClick(event){
         event.preventDefault()
         let id = event.target.attributes.dataindex.nodeValue
+        let newPage = parseInt(id) + 1
         this.setState({
-            currentPage: parseInt(id) + 1
+            currentPage: newPage,
+            buttonMessage: this.setButtonMessage(newPage)
         })
     }
     onNextPage(event) {
         event.preventDefault()
+        let course = this.props.course
         let newPage = this.state.currentPage + 1
-        this.setState({
-            currentPage: newPage
-        })
+        //if user didn't reach end of course, show next page
+        if (newPage <= course.pages) {
+            this.setState({
+                currentPage: newPage,
+                buttonMessage: this.setButtonMessage(newPage)
+            })
+        }
+        else {
+            //redirect to assessment page
+            this.setState({
+                finished: true
+            })
+            return
+        }
+
         if (newPage > this.props.progress[0].current_page ){
+
             //advancing to a new page, requires progress report update
-            let course = this.props.course
+
             let progressReport = Object.assign({},this.props.progress[0],{
                 current_page: newPage,
                 finished: newPage >= course.pages
             })
             console.log(progressReport)
             this.props.actions.updateProgress(this.props.user.header,progressReport,course['_id'])
-                .then(res => {this.props.actions.setProgress(progressReport)}).catch(err => console.log(err.response))
+                .then(res => {
+                    this.props.actions.setProgress(progressReport)}).catch(err => console.log(err.response))
 
         }
         else {
@@ -139,16 +161,31 @@ export class CourseContentPage extends React.Component {
                 <Redirect to='/account/login' />
             )
         }
+        if (this.state.finished) {
+            return (
+                <Redirect to={`/course/${this.props.match.params.id}/assess`} />
+            )
+        }
 
         return (
             <div className='container-fluid course-landing-content row px-0 mx-0'>
-                {  this.props.course.content ?
+                {  this.props.course.content && this.props.progress.length > 0 ?
                 (
                     <React.Fragment>
+
+
                         <div className='col-md-8 col-lg-9'>
-                            <PageRedacter page={this.props.course.content.pages[this.state.currentPage-1]} />
-                            <button className='btn btn-primary' onClick={this.onNextPage}>Next Page</button>
+                            {
+                                this.props.loading ? <LoadingIcon /> :
+                                <React.Fragment>
+                                    <PageRedacter page={this.props.course.content.pages[this.state.currentPage-1]} />
+                                    <button className='btn btn-primary' onClick={this.onNextPage}>Go to {this.state.buttonMessage}</button>
+                                </React.Fragment>
+                            }
+
                         </div>
+
+
                         <CourseMenuDisplay
                         title={this.props.course.name}
                         pages={this.props.course.content.pages}
@@ -184,8 +221,8 @@ function mapStateToProps(state,ownProps) {
     return {
         user,
         course: state.course,
-        loading: state.asyncCallsInProgress > 0,
-        progress: state.course.progress ? [state.course.progress.find(p => p.username == user.username)] : []
+        loading: state.asyncCalls > 0,
+        progress: state.course.progress && state.course.progress.length > 0 ? [state.course.progress.find(p => p.username == user.username)] : []
     }
 }
 function mapDispatchToProps(dispatch) {

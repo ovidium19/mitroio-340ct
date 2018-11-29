@@ -36,3 +36,24 @@ export async function updateProgress(header, progressReport,id){
         data: progressReport
     }).then(res => res.data)
 }
+export async function postGrades(header,data,username,courseid) {
+    return axios({
+        url: `${coursesPath}/${courseid}/assessment/${username}`,
+        baseURL: baseUrl,
+        method: 'POST',
+        headers: {
+            'Authorization': header
+        },
+        data
+    }).then(res => res.data)
+}
+export async function getCoursesForUser(header,options) {
+    return axios({
+        url: `${coursesPath}/for/${options.username}`,
+        baseURL: baseUrl,
+        method: 'GET',
+        headers: {
+            'Authorization': header
+        }
+    }).then(res => res.data)
+}
