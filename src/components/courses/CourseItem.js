@@ -2,13 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import StarRatingComponent from 'react-star-rating-component'
 import {Line} from 'rc-progress'
-
-const CourseItem = ({course, onClick}) => {
+// export class CourseItem extends React.Component {
+//     constructor(props) {
+//         super(props)
+//     }
+// }
+const CourseItem = ({course, onClick, onRatingClick, courseClicked}) => {
     let bestGrades = 0
     let progressPercent = 0
     if (course.assessments && course.assessments.length > 0) {
         bestGrades = course.assessments.reduce((p,c,i) => {
-            console.log(c)
             if (p < c.grades.total_points) return c.grades.total_points
             return p
         },0)
@@ -16,11 +19,39 @@ const CourseItem = ({course, onClick}) => {
     if (course.progress && course.progress.length > 0) {
        progressPercent = Math.floor((course.progress[0].current_page / course.pages) * 100)
     }
-    console.log(progressPercent)
+
+    function onStarClick(val,pre,name,e) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        onRatingClick && onRatingClick(val,pre,name)
+    }
     return (
         <div className='course-item card'>
             <div className='card-header text-light bg-dark'>
-                <h4>{course.name}</h4>
+                <h4 className='mb-2'>{course.name}</h4>
+                {
+                    progressPercent == 100 &&
+                    <div className='row'>
+                    {
+                        course['_id'] !== courseClicked ?
+                        <React.Fragment>
+                            <div className='col-3'>Rate: </div>
+                            <div className='col'>
+                                <StarRatingComponent
+                                name={course['_id']}
+                                emptyStarColor = {'lightgray'}
+                                starCount = {5}
+                                value = {course.ratings.length > 0 ? course.ratings[0].rating : 0}
+                                onStarClick={onStarClick} />
+                            </div>
+                        </React.Fragment> :
+                        <div className='pl-2'>Saving rating...</div>
+                    }
+
+                </div>
+                }
+
             </div>
             <div className='card-body text-light bg-dark'>
                 <p className='card-subtitle small my-2'>Category: <span className='course-category'>{course.category}</span></p>
@@ -87,6 +118,7 @@ const CourseItem = ({course, onClick}) => {
 
 CourseItem.propTypes = {
     course: PropTypes.object.isRequired,
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    onRatingClick: PropTypes.func.isRequired
 }
 export default CourseItem

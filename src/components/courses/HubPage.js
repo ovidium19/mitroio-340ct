@@ -21,9 +21,11 @@ export class HubPage extends React.Component {
                 random: false,
                 category: ''
             },
-            updated: false
+            updated: false,
+            courseClicked: ''
         }
         this.onNavigateToCourse = this.onNavigateToCourse.bind(this)
+        this.onUserRatingChanged = this.onUserRatingChanged.bind(this)
     }
 
     componentDidMount() {
@@ -69,11 +71,22 @@ export class HubPage extends React.Component {
         this.props.actions.setActiveCourse(id)
         this.props.history.push(`/course/${id}`)
     }
+    onUserRatingChanged(value, prev, name, e) {
+        console.log(name)
+        this.setState({
+            courseClicked: name
+        })
+    }
     renderCourseList(courses,callback) {
         return (
             <React.Fragment>
                  {courses.length > 0 ?
-                <CourseList title={'Courses you have seen'} courses = {courses} onClick = {callback} />
+                <CourseList
+                title={'Courses you have seen'}
+                courses = {courses}
+                onClick = {callback}
+                onUserRatingChanged = {this.onUserRatingChanged}
+                courseClicked = {this.state.courseClicked} />
                 :
                 <p>
                 {'You haven\'t progressed on any available courses. See courses at this ' }
