@@ -53,8 +53,10 @@ export function getCourses(header, options){
     return (dispatch, getState) => {
         dispatch(beginAsyncOp())
         return courseDb.getCourses(header,options).then(res => {
+
             dispatch(getCoursesSuccess(res))
         }).catch(err => {
+            console.log(err.response)
             dispatch(asyncError(err))
             throw(err)
         })
@@ -64,6 +66,7 @@ export function getCourseById(header, options) {
     return (dispatch, getState) => {
         dispatch(beginAsyncOp())
         return courseDb.getCourseById(header,options).then(res => {
+            console.log(res)
             dispatch(getCourseSuccess(res))
         }).catch(err => {
             dispatch(asyncError(err))

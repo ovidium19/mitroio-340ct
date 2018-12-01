@@ -27,7 +27,7 @@ const CourseItem = ({course, onClick, onRatingClick, courseClicked}) => {
         onRatingClick && onRatingClick(val,pre,name)
     }
     return (
-        <div className='course-item card'>
+        <div className='course-item card' id={course.name.replace(' ','')}>
             <div className='card-header text-light bg-dark'>
                 <h4 className='mb-2'>{course.name}</h4>
                 {
@@ -37,7 +37,7 @@ const CourseItem = ({course, onClick, onRatingClick, courseClicked}) => {
                         course['_id'] !== courseClicked ?
                         <React.Fragment>
                             <div className='col-3'>Rate: </div>
-                            <div className='col'>
+                            <div className='col user-rating'>
                                 <StarRatingComponent
                                 name={course['_id']}
                                 emptyStarColor = {'lightgray'}

@@ -19,7 +19,6 @@ export async function getCourseById(header, options){
         url: `${coursesPath}/${options.id}`,
         baseURL: baseUrl,
         method: 'GET',
-        params: options,
         headers: {
             'Authorization': header
         }

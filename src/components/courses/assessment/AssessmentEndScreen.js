@@ -11,7 +11,7 @@ const AssessmentEndScreen = ({points, username, courseid}) => {
         hint = (
             <React.Fragment>
                 <span>{'You have successfully passed the assessment with '}</span>
-                <p className='text-center display-4 text-success'>{`${points}%`}</p>
+                <p className='text-center display-4 text-success score'>{`${points}%`}</p>
             </React.Fragment>
         )
     }
@@ -20,7 +20,7 @@ const AssessmentEndScreen = ({points, username, courseid}) => {
         hint = (
             <React.Fragment>
                 <span>{'You failed to pass with '}</span>
-                <p className='text-center display-4 text-danger'>{`${points}%`}</p>
+                <p className='text-center display-4 text-danger score'>{`${points}%`}</p>
             </React.Fragment>
         )
     }
