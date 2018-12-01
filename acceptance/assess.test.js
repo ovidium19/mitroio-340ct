@@ -5,7 +5,7 @@ describe('testUser takes assessment', () => {
     let page
 
     beforeAll(() => {
-        jest.setTimeout(99000)
+        jest.setTimeout(30000)
     })
 
     test('User logs in, selects Test Course, proceeds to assessment, takes assessment, passess with 100%, match snapshot', async done => {

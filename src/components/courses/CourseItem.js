@@ -27,7 +27,7 @@ const CourseItem = ({course, onClick, onRatingClick, courseClicked}) => {
         onRatingClick && onRatingClick(val,pre,name)
     }
     return (
-        <div className='course-item card' id={course.name.replace(' ','')}>
+        <div className='course-item card' id={course.name.replace(/ /g,'').toLowerCase()}>
             <div className='card-header text-light bg-dark'>
                 <h4 className='mb-2'>{course.name}</h4>
                 {

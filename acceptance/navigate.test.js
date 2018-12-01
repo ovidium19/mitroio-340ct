@@ -5,7 +5,7 @@ describe('testUser navigates to page 1 of GitFlow', () => {
     let page
 
     beforeAll(() => {
-        jest.setTimeout(15000)
+        jest.setTimeout(30000)
     })
     test('User logs in, goes to /courses, selects Git Flow, Views content, selects Page 1', async done => {
         let elem
@@ -18,10 +18,10 @@ describe('testUser navigates to page 1 of GitFlow', () => {
         await page.type('#passwordid','testPassword')
         elem = await page.$('[type="submit"]')
         await elem.click()
-        await page.waitFor('#Gitflow')
+        await page.waitFor('#gittheorybeginner')
         elem = await page.waitFor('[href="/courses"]')
         await elem.click()
-        elem = await page.waitFor('#Gitflow button')
+        elem = await page.waitFor('#gittheorybeginner button')
         await elem.click()
         elem = await page.waitFor('[href^="/course/"]')
         await elem.click()
@@ -29,7 +29,7 @@ describe('testUser navigates to page 1 of GitFlow', () => {
         await elem.click()
         elem = await page.waitFor('.page-content button')
         let text = await page.$eval('.page-content button', (e) => e.innerHTML)
-        expect(text).toEqual('Go to Page 2')
+        expect(text).toEqual('Go to Git Basic Commands')
         let content = await page.content()
         expect(content).toMatchSnapshot()
         await browser.close()
