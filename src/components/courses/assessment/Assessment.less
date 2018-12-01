@@ -1,0 +1,32 @@
+
+.question-box {
+    box-shadow: 1px 1px 1px 1px lightgray inset;
+    .card-header {
+        font-size: 1.3em;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        background: bisque;
+        box-shadow: 1px 1px 3px 1px lightgray inset;
+        color: black;
+    }
+}
+.question-answer {
+    font-size: 1.2em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    border: 1px solid lightgrey;
+    cursor: pointer;
+
+    &:hover {
+        background: lightcyan;
+    }
+    .question-answer-text {
+        padding-top: 0.3em;
+    }
+    & > .question-answer-text.active{
+        background: orangered;
+    }
+    .question-answer-text {
+        &.active {
+            color: white;
+        }
+    }
+}
