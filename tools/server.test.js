@@ -17,7 +17,7 @@ describe('Testing server', () => {
 
     test('It responds with OK', async(done) =>{
         const response = await request(server).get('/')
-        expect(response.status).toEqual(status.NOT_FOUND)
+        expect(response.status).toEqual(status.OK)
         done()
     })
     test('With error header, it responds with error', async done => {
