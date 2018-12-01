@@ -66,6 +66,7 @@ export function getCourseById(header, options) {
     return (dispatch, getState) => {
         dispatch(beginAsyncOp())
         return courseDb.getCourseById(header,options).then(res => {
+            console.log(res)
             dispatch(getCourseSuccess(res))
         }).catch(err => {
             dispatch(asyncError(err))

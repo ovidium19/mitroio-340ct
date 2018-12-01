@@ -13,7 +13,8 @@ import CourseLandingPage from './courses/courseContent/CourseLandingPage'
 import CourseContentPage from './courses/courseContent/courseContentPage'
 import AssessmentPage from './courses/assessment/AssessmentPage'
 import HubPage from './courses/HubPage'
-
+toastr.options.timeOut = 5 // How long the toast will display without user interaction
+toastr.options.extendedTimeOut = 10 // How long the toast will display after a user hovers over it
 class App extends React.Component {
     constructor(props){
         super(props)
