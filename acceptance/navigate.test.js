@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer'
-
+import * as ct from '../src/constants'
 describe('testUser navigates to page 1 of GitFlow', () => {
     let browser
     let page
@@ -11,7 +11,7 @@ describe('testUser navigates to page 1 of GitFlow', () => {
         let elem
         browser = await puppeteer.launch()
         page = await browser.newPage()
-        await page.goto('http://localhost:8000')
+        await page.goto(ct.BASEURL_FOR_THIS)
         elem = await page.waitFor('[href="/account/login"]')
         await elem.click()
         await page.type('#usernameid','testUser')

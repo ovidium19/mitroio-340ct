@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer'
-
+import * as ct from '../src/constants'
 describe('testUser takes assessment', () => {
     let browser
     let page
@@ -12,7 +12,7 @@ describe('testUser takes assessment', () => {
         let elem
         browser = await puppeteer.launch()
         page = await browser.newPage()
-        await page.goto('http://localhost:8000')
+        await page.goto(ct.BASEURL_FOR_THIS)
         elem = await page.waitFor('[href="/account/login"]')
         await elem.click()
         await page.type('#usernameid','testUser')
