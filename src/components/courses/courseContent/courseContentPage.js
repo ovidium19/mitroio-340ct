@@ -174,7 +174,7 @@ export class CourseContentPage extends React.Component {
                     <React.Fragment>
 
 
-                        <div className='col-md-8 col-lg-9 page-content'>
+                        <div className='col-md-8 col-lg-9 page-content pb-4'>
                             {
                                 this.props.loading ? <LoadingIcon /> :
                                 <React.Fragment>

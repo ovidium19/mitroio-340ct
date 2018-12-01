@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 const CodeBlock = ({content, klass, index}) => {
     console.log(content.split('\\n'))
     return (
-        <div className='bash-block bg-dark px-1 py-2'>
+        <div className='bash-block bg-dark px-1 py-2 my-2'>
             <pre className={klass}>
                 {content.split('\\n').map((line,i) => (
                     <span key={`${index}line${i}`}>{line}<br /></span>

@@ -1,18 +1,18 @@
 import puppeteer from 'puppeteer'
-
+import * as ct from '../src/constants'
 describe('testUser takes assessment', () => {
     let browser
     let page
 
     beforeAll(() => {
-        jest.setTimeout(99000)
+        jest.setTimeout(30000)
     })
 
     test('User logs in, selects Test Course, proceeds to assessment, takes assessment, passess with 100%, match snapshot', async done => {
         let elem
         browser = await puppeteer.launch()
         page = await browser.newPage()
-        await page.goto('http://localhost:8000')
+        await page.goto(ct.BASEURL_FOR_THIS)
         elem = await page.waitFor('[href="/account/login"]')
         await elem.click()
         await page.type('#usernameid','testUser')

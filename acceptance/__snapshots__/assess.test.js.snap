@@ -94,6 +94,9 @@ exports[`testUser takes assessment User logs in, selects Test Course, proceeds t
 .start-assess {
   flex-grow: 2;
 }
+ul.page-list {
+  list-style-type: circle;
+}
 </style><style type=\\"text/css\\">.question-box {
   box-shadow: 1px 1px 1px 1px lightgray inset;
 }

@@ -4,6 +4,7 @@ import TextParagraph from './pageElements/textParagraph'
 import List from './pageElements/List'
 import CodeBlock from './pageElements/CodeBlock'
 import Image from './pageElements/Image'
+import Subtitle from './pageElements/Subtitle'
 const PageRedacter = ({page}) =>{
     let { title, elements } = page
     return (
@@ -20,7 +21,7 @@ const PageRedacter = ({page}) =>{
                         }
                         case 'list': {
                             return (
-                                <List key={`pageelem${i}`} index={`${i}`} content={elem.list_elements} klass={'page-list'} />
+                                <List key={`pageelem${i}`} index={`${i}`} content={elem.list_elements} klass={`page-list ${elem.hasOwnProperty('bootstrap') ? elem.bootstrap : ''}`} />
                             )
                         }
                         case 'code-block': {
@@ -31,6 +32,11 @@ const PageRedacter = ({page}) =>{
                         case 'image': {
                             return (
                                 <Image key={`pageelem${i}`} index={`${i}`} content={elem.content} klass={'page-image'} />
+                            )
+                        }
+                        case 'subtitle': {
+                            return (
+                                <Subtitle key={`pageelem${i}`} index={`${i}`} content={elem.content} klass={elem.bootstrap || ''} />
                             )
                         }
                         default: {
