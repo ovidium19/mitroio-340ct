@@ -43,7 +43,7 @@ export class LearnPage extends React.Component {
                     options: Object.assign({},this.state.options,{page: next})
                 })
             }).catch(err => {
-                console.log(err.response)
+
                 this.setState({
                     updated: true
                 })
@@ -55,7 +55,7 @@ export class LearnPage extends React.Component {
         this.setState({
             updated: false
         })
-        console.log("Unmounting LearnPage")
+
     }
     onNavigateToCourse(event) {
         event.preventDefault()

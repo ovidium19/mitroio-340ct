@@ -9,6 +9,7 @@ const AssessmentAnswer = ({answer, onClick, klass}) => (
 
 AssessmentAnswer.propTypes = {
     answer: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    klass: PropTypes.string
 }
 export default AssessmentAnswer

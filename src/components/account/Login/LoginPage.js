@@ -20,9 +20,6 @@ export class LoginPage extends React.Component {
         this.onStateUpdate = this.onStateUpdate.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
     }
-    componentDidMount() {
-        console.log('Mounted LoginPage')
-    }
     onStateUpdate(event) {
         const field = event.target.name
         const user = Object.assign({},this.state.user)

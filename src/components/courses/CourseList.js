@@ -13,12 +13,12 @@ const CourseList = ({ courses, title, onClick, onUserRatingChanged, courseClicke
             >
 
                 {courses.map((c,i) =>
-                <CourseItem
+                (<CourseItem
                 key={i}
                 course={c}
                 onClick = {onClick}
                 onRatingClick = {onUserRatingChanged}
-                courseClicked = {courseClicked}/>) }
+                courseClicked = {courseClicked}/>)) }
             </div>
         </div>
     )

@@ -52,9 +52,6 @@ export class CourseContentPage extends React.Component {
                 })
 
             }).catch(err => {
-                console.log(err.response)
-
-
             })
         }
 
@@ -82,13 +79,13 @@ export class CourseContentPage extends React.Component {
                     return Promise.resolve(progressReport)
                 }
                 catch(err){
-                    console.log(err.response)
+                    console.log(err)
                 }
 
             }
             //if we have a progress report, load that into component state
             else {
-                return Promise.reject("Already there")
+                return Promise.reject('Already there')
             }
         }
 
@@ -136,10 +133,11 @@ export class CourseContentPage extends React.Component {
                 current_page: newPage,
                 finished: newPage >= course.pages
             })
-            console.log(progressReport)
+
             this.props.actions.updateProgress(this.props.user.header,progressReport,course['_id'])
                 .then(res => {
-                    this.props.actions.setProgress(progressReport)}).catch(err => console.log(err.response))
+                    this.props.actions.setProgress(progressReport)
+                }).catch(err => console.log(err.response))
 
         }
         else {
@@ -190,7 +188,7 @@ export class CourseContentPage extends React.Component {
                         title={this.props.course.name}
                         pages={this.props.course.content.pages}
                         onClick={this.onMenuItemClick}
-                        currentPage={this.props.progress ? this.props.progress[0].current_page : 0 } />
+                        currentPage={this.props.progress ? this.props.progress[0].current_page : 0} />
                     </React.Fragment>
                   )
                 : <LoadingIcon />

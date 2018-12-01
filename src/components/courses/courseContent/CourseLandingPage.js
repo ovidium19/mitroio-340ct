@@ -6,7 +6,7 @@ import {Redirect, Link} from 'react-router-dom'
 import StarRatingComponent from 'react-star-rating-component'
 
 
-export const CourseLandingPage = ({user, course, match}) =>
+export const CourseLandingPage = ({course}) =>
         (
             <div className='container-fluid course-landing-content mt-3'>
                 {  course.name ?
@@ -22,7 +22,7 @@ export const CourseLandingPage = ({user, course, match}) =>
                             <div className='col-2' />
                             <div className='col-4 text-right'>
                                 <StarRatingComponent
-                                    name={ course.name.replace(' ','')}
+                                    name={course.name.replace(' ','')}
                                     emptyStarColor = {'lightgray'}
                                     editing={false}
                                     starCount = {5}
@@ -38,8 +38,7 @@ export const CourseLandingPage = ({user, course, match}) =>
      )
 
 CourseLandingPage.propTypes = {
-    course: PropTypes.object,
-    match: PropTypes.object.isRequired
+    course: PropTypes.object
 }
 function mapStateToProps(state,ownProps) {
     let user = {

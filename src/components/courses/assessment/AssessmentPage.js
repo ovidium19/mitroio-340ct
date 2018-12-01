@@ -67,14 +67,9 @@ export class AssessmentPage extends React.Component {
                     grades: this.state.assessReport,
                     passed: this.state.assessReport.total_points > 49
                 }
-                console.log(data)
+
                 this.props.actions.postGrades(this.props.user.header, data, this.props.user.username, this.props.course['_id'])
-                    .then(res => {
-                        console.log(res)
-                    })
-                    .catch(err => {
-                        console.log(err.response)
-                    })
+
             }
         })
 

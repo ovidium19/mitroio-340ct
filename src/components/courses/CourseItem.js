@@ -102,6 +102,7 @@ const CourseItem = ({course, onClick, onRatingClick, courseClicked}) => {
 CourseItem.propTypes = {
     course: PropTypes.object.isRequired,
     onClick: PropTypes.func.isRequired,
-    onRatingClick: PropTypes.func.isRequired
+    onRatingClick: PropTypes.func,
+    courseClicked: PropTypes.string
 }
 export default CourseItem

@@ -1,4 +1,4 @@
-import initialState from "./initialState"
+import initialState from './initialState'
 import * as types from '../actions/actionTypes'
 
 export default function user(state=initialState.user, action){
@@ -13,7 +13,7 @@ export default function user(state=initialState.user, action){
             }
         }
         case types.USER_SIGN_UP_SUCCESS: {
-            console.log(action.user)
+
             return {
                 username: action.user.username,
                 password: ''

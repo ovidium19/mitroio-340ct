@@ -10,7 +10,7 @@ export default function asyncCalls(state = initialState.asyncCalls, action) {
     return state + 1
   } else if (action.type == types.ASYNC_ERROR || actionTypeEndsInSuccess(action.type)) {
         if (action.err) {
-            console.log(action.err.message)
+            console.log(action.err)
         }
         return state - 1
   }

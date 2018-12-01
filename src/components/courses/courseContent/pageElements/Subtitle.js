@@ -7,7 +7,7 @@ const Subtitle = ({content, klass, index}) =>
        </p>
     )
 Subtitle.propTypes = {
-    content: PropTypes.array.isRequired,
+    content: PropTypes.string.isRequired,
     klass: PropTypes.string,
     index: PropTypes.string.isRequired
 }

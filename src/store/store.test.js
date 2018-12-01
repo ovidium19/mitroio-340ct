@@ -8,7 +8,7 @@ import nock from 'nock'
 import axios from 'axios'
 
 
-describe("Integration tests for redux - store,reducers and actions", () => {
+describe('Integration tests for redux - store,reducers and actions', () => {
     beforeAll(() => {
         axios.defaults.adapter = require('axios/lib/adapters/http')
         nock(env.BASE_URL)

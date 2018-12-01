@@ -20,9 +20,7 @@ export class SignupPage extends React.Component {
         this.onStateUpdate = this.onStateUpdate.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
     }
-    componentDidMount() {
-        console.log('Mounted SignupPage')
-    }
+
     onStateUpdate(event) {
         const field = event.target.name
         const user = Object.assign({},this.state.user)
@@ -66,7 +64,7 @@ export class SignupPage extends React.Component {
         this.props.actions.signUpUser(this.state.user)
             .then(() => this.redirect())
             .catch(err => {
-                console.log(err.response)
+
                 this.setState({
                     errors: {
                         username: err.response.data.data.detail
@@ -80,12 +78,12 @@ export class SignupPage extends React.Component {
             loading: false,
             redirect: true
         })
-        toastr.success(`Account created, you may now log in to the system`)
+        toastr.success('Account created, you may now log in to the system')
     }
     render() {
         if (this.state.redirect) {
             return (
-                <Redirect to={`/account/login`} />
+                <Redirect to={'/account/login'} />
             )
         }
         return (

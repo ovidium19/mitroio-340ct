@@ -45,7 +45,7 @@ export class HubPage extends React.Component {
                     updated: true
                 })
             }).catch(err => {
-                console.log(err.response)
+
                 this.setState({
                     updated: true
                 })
@@ -57,7 +57,7 @@ export class HubPage extends React.Component {
         this.setState({
             updated: false
         })
-        console.log("Unmounting HubPage")
+
     }
     redirectTo(link) {
         this.setState({
@@ -72,7 +72,7 @@ export class HubPage extends React.Component {
         this.props.history.push(`/course/${id}`)
     }
     onUserRatingChanged(value, prev, name, e) {
-        console.log(name)
+
         let course = this.props.courses.find(c => c['_id'] == name)
         this.setState({
             courseClicked: name
@@ -84,7 +84,7 @@ export class HubPage extends React.Component {
         this.props.actions.rateCourse(this.props.user.header,rating,course['_id'])
             .then(res => {
                 this.props.actions.setRating(rating, course['_id'])
-                console.log(res)
+
                 this.setState({
                     courseClicked: ''
                 })
