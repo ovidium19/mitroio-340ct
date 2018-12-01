@@ -120,7 +120,7 @@ export class HubPage extends React.Component {
         return (
             <div className='container-fluid courses mt-3'>
             {
-                this.props.courses.length > 0 ? this.renderCourseList(this.props.courses, this.onNavigateToCourse): <LoadingIcon />
+                this.props.loading ? <LoadingIcon /> : this.renderCourseList(this.props.courses, this.onNavigateToCourse)
 
             }
 
