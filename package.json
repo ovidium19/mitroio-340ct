@@ -19,6 +19,10 @@
     "type": "git",
     "url": "https://github.coventry.ac.uk/340CT-1819SEPJAN/Ovidiu_Mitroi_340CT_6832432_FrontEnd.git"
   },
+  "engines": {
+      "node": "9.3.0",
+      "npm": "5.5.1"
+  },
   "keywords": [
     "340CT",
     "Ovidiu",

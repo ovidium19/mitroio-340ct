@@ -40,7 +40,8 @@ router.get('*', async ctx => {
 })
 app.use(router.routes())
 app.use(router.allowedMethods())
-const server  = app.listen(port, () => {
+const server  = app.listen(process.env.PORT || port, () => {
+    console.log(process.env.PORT)
     console.log(`Listening on port ${port}`)
 })
 export default server

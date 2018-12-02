@@ -1,6 +1,7 @@
 import axios from 'axios'
+import * as ct from '../constants'
 
-const baseUrl = 'http://localhost:3030'
+const baseUrl = ct.BASEURL_USER_API
 const loginPath = '/api/v1/users/login'
 const signupPath = '/api/v1/users/signup'
 function generateAuthHeader(credentials){

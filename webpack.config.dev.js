@@ -5,8 +5,6 @@ export default {
   mode: 'development',
   devtool: 'cheap-module-eval-source-map', // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps and https://webpack.github.io/docs/configuration.html#devtool
   entry: [
-    'eventsource-polyfill', // necessary for hot reloading with IE
-    'webpack-hot-middleware/client',
     './src/index'
   ],
   target: 'web',
@@ -18,10 +16,6 @@ export default {
   devServer: {
     contentBase: './src'
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
-  ],
   module: {
     rules: [
       {test: /\.js$/, include: path.join(__dirname, 'src'), loader: 'babel-loader'},

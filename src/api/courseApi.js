@@ -1,6 +1,6 @@
 import axios from 'axios'
-
-const baseUrl = 'http://localhost:3031'
+import * as ct from '../constants'
+const baseUrl = ct.BASE_URL
 const coursesPath = '/api/v1/courses'
 
 export async function getCourses(header, options){

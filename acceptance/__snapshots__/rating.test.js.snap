@@ -144,5 +144,5 @@ body {
     <script src=\\"/bundle.js\\"></script>
 
 
-<div id=\\"toast-container\\" class=\\"toast-top-right\\"><div class=\\"toast toast-success\\" aria-live=\\"polite\\" style=\\"opacity: 0.266872;\\"><div class=\\"toast-message\\">Logged in as testUser</div></div></div></body></html>"
+</body></html>"
 `;
